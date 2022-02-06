@@ -1,4 +1,5 @@
 const HttpError = require("../models/http-error");
+const { v4 } = require("uuid");
 
 const DUMMY_PLACES = [
   {
@@ -9,7 +10,7 @@ const DUMMY_PLACES = [
       lat: 40.7484405,
       lng: -73.9878531,
     },
-    addres: "20 W 34th St, New York, NY 10001",
+    address: "20 W 34th St, New York, NY 10001",
     creator: "u1",
   },
 ];
@@ -35,5 +36,21 @@ function findPlacesByUserId(req, res, next) {
   res.json({ places });
 }
 
+function createPlace(req, res, next) {
+    const { title, description, coordinates, address, creator } = req.body;
+    const createdPlace = {
+        id: v4(),
+        title,
+        description,
+        location : coordinates,
+        address,
+        creator
+    };
+    DUMMY_PLACES.push(createdPlace);
+    res.status(201);
+    res.json({place: createdPlace});
+}
+
 exports.findPlaceById = findPlaceById;
 exports.findPlacesByUserId = findPlacesByUserId;
+exports.createPlace = createPlace;

@@ -5,7 +5,7 @@ const placesRoutes = require("./routes/place-routes");
 const app = express();
 app.use(express.json());
 
-app.use("/api/places", placesRoutes);
+app.use("/api/place", placesRoutes);
 
 // If any route raise an error, this middleware will catch the error
 app.use((error, req, res, next) => {
