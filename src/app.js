@@ -1,10 +1,11 @@
 const express = require('express');
 
-const app = express();
+const placesRoutes = require('./routes/places-routes');
 
-app.listen(5001);
+const app = express();
 app.use(express.json());
 
-app.get('/',(req,res) => {
-    res.send('Hello again');
-});
+app.use(placesRoutes);
+
+
+app.listen(5000);
