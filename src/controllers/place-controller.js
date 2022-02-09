@@ -51,6 +51,4 @@ function createPlace(req, res, next) {
     res.json({place: createdPlace});
 }
 
-exports.findPlaceById = findPlaceById;
-exports.findPlacesByUserId = findPlacesByUserId;
-exports.createPlace = createPlace;
+module.exports = { findPlaceById, findPlacesByUserId, createPlace }

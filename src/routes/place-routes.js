@@ -1,14 +1,14 @@
 const express = require("express");
 
 const HttpError = require("../models/http-error");
-const placeControllers = require("../controllers/place-controller");
+const { findPlaceById, findPlacesByUserId, createPlace } = require("../controllers/place-controller");
 
 const router = express.Router();
 
-router.get("/:placeId", placeControllers.findPlaceById);
+router.get("/:placeId", findPlaceById);
 
-router.get("/user/:userId", placeControllers.findPlacesByUserId);
+router.get("/user/:userId", findPlacesByUserId);
 
-router.post("/", placeControllers.createPlace);
+router.post("/", createPlace);
 
 module.exports = router;
