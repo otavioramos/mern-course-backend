@@ -37,18 +37,53 @@ function findPlacesByUserId(req, res, next) {
 }
 
 function createPlace(req, res, next) {
-    const { title, description, coordinates, address, creator } = req.body;
-    const createdPlace = {
-        id: v4(),
-        title,
-        description,
-        location : coordinates,
-        address,
-        creator
-    };
-    DUMMY_PLACES.push(createdPlace);
-    res.status(201);
-    res.json({place: createdPlace});
+  const { title, description, coordinates, address, creator } = req.body;
+  const createdPlace = {
+      id: v4(),
+      title,
+      description,
+      location : coordinates,
+      address,
+      creator
+  };
+  DUMMY_PLACES.push(createdPlace);
+  res.status(201);
+  res.json({place: createdPlace});
 }
 
-module.exports = { findPlaceById, findPlacesByUserId, createPlace }
+function updatePlace(req, res, next) {
+  const placeId = req.params.placeId;
+  const { title, description, coordinates, address, creator } = req.body;
+  const placeFoundIndex = DUMMY_PLACES.findIndex( place => place.id === placeId);
+  if (placeFoundIndex === -1) {
+    return next(
+      new HttpError("Could not find a place for the provided user id.", 404)
+    );
+  }
+  DUMMY_PLACES[placeFoundIndex] = {
+    ...DUMMY_PLACES[placeFoundIndex],
+    title,
+    description,
+    location : coordinates,
+    address,
+    creator
+  };
+  res.status(200);
+  res.json({place: DUMMY_PLACES[placeFoundIndex]});
+}
+
+function deletePlace(req, res, next) {
+  const placeId = req.params.placeId;
+  const placeFoundIndex = DUMMY_PLACES.findIndex( place => place.id === placeId);
+  if (placeFoundIndex === -1) {
+    return next(
+      new HttpError("Could not find a place for the provided user id.", 404)
+    );
+  }
+  const placeToDelete = DUMMY_PLACES[placeFoundIndex];
+  DUMMY_PLACES.splice(placeFoundIndex, 1);
+  res.status(200);
+  res.json({place: placeToDelete});
+}
+
+module.exports = { findPlaceById, findPlacesByUserId, createPlace, updatePlace, deletePlace };
