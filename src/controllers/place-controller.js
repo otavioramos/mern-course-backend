@@ -53,7 +53,7 @@ function createPlace(req, res, next) {
 
 function updatePlace(req, res, next) {
   const placeId = req.params.placeId;
-  const { title, description, coordinates, address, creator } = req.body;
+  const { title, description } = req.body;
   const placeFoundIndex = DUMMY_PLACES.findIndex( place => place.id === placeId);
   if (placeFoundIndex === -1) {
     return next(
@@ -63,10 +63,7 @@ function updatePlace(req, res, next) {
   DUMMY_PLACES[placeFoundIndex] = {
     ...DUMMY_PLACES[placeFoundIndex],
     title,
-    description,
-    location : coordinates,
-    address,
-    creator
+    description
   };
   res.status(200);
   res.json({place: DUMMY_PLACES[placeFoundIndex]});
