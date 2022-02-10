@@ -27,9 +27,9 @@ function findPlaceById(req, res, next) {
 function findPlacesByUserId(req, res, next) {
   const userId = req.params.userId;
   const places = DUMMY_PLACES.filter((place) => place.creator === userId);
-  if (places.length === 0) {
+  if (!places || places.length === 0) {
     return next(
-      new HttpError("Could not find a place for the provided user id.", 404)
+      new HttpError("Could not find places for the provided user id.", 404)
     );
   }
 
