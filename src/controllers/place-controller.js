@@ -77,10 +77,9 @@ function deletePlace(req, res, next) {
       new HttpError("Could not find a place for the provided user id.", 404)
     );
   }
-  const placeToDelete = DUMMY_PLACES[placeFoundIndex];
   DUMMY_PLACES.splice(placeFoundIndex, 1);
   res.status(200);
-  res.json({place: placeToDelete});
+  res.json({message: 'Deleted place.'});
 }
 
 module.exports = { findPlaceById, findPlacesByUserId, createPlace, updatePlace, deletePlace };
