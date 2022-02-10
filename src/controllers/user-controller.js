@@ -31,6 +31,10 @@ function getAllUsers(req, res, next) {
 
 function signupUser(req, res, next) {
     const { name, email, password } = req.body;
+    const hasUser = DUMMY_USERS.find(user => user.email === email);
+    if (hasUser) {
+        return next(new HttpError("Could not create user, email already exists", 422));
+    }
     const userId = v4();
     DUMMY_USERS.push({
         id: userId,
