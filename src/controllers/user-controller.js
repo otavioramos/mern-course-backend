@@ -46,14 +46,9 @@ function signupUser(req, res, next) {
 function logInUser(req, res, next) {
     const { email, password } = req.body;
     const userByEmail = DUMMY_USERS.find( user => user.email === email);
-    if (!userByEmail) {
+    if (!userByEmail || userByEmail.password !== password) {
         return next(
-            new HttpError("Could not find a user for the provided email.", 404)
-          );
-    }
-    if (userByEmail.password !== password) {
-        return next(
-            new HttpError("Incorrect password.", 401)
+            new HttpError("Could not identify user, credentials seem to be wrong.", 401)
           );
     }
     res.status(200).json({message: 'Login success.'})
