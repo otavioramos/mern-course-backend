@@ -1,6 +1,5 @@
 const express = require("express");
 
-const HttpError = require("../models/http-error");
 const { findPlaceById, 
     findPlacesByUserId, 
     createPlace,
