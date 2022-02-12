@@ -1,5 +1,6 @@
 const HttpError = require("../models/http-error");
-const { v4 } = require('uuid');
+const { v4 } = require("uuid");
+const { validationResult } = require("express-validator");
 
 const DUMMY_USERS = [
     {
@@ -30,6 +31,11 @@ function getAllUsers(req, res, next) {
 }
 
 function signupUser(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError("Invalid input passed, please check your data.", 422);
+    }
+
     const { name, email, password } = req.body;
     const hasUser = DUMMY_USERS.find(user => user.email === email);
     if (hasUser) {
@@ -48,6 +54,11 @@ function signupUser(req, res, next) {
 }
 
 function logInUser(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError("Invalid input passed, please check your data.", 422);
+    }
+
     const { email, password } = req.body;
     const userByEmail = DUMMY_USERS.find( user => user.email === email);
     if (!userByEmail || userByEmail.password !== password) {
