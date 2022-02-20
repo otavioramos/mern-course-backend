@@ -15,16 +15,12 @@ router.post(
   "/signup",
   [
     check("name").not().isEmpty(),
-    check("email").isEmail(),
-    check("password").isLength({ min: 8 }),
+    check("email").normalizeEmail().isEmail(),
+    check("password").isLength({ min: 6 }),
   ],
   signupUser
 );
 
-router.post(
-  "/login",
-  [check("email").isEmail(), check("password").not().isEmpty()],
-  logInUser
-);
+router.post("/login", logInUser);
 
 module.exports = router;

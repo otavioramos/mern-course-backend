@@ -54,11 +54,6 @@ function signupUser(req, res, next) {
 }
 
 function logInUser(req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data.", 422);
-    }
-
     const { email, password } = req.body;
     const userByEmail = DUMMY_USERS.find( user => user.email === email);
     if (!userByEmail || userByEmail.password !== password) {
