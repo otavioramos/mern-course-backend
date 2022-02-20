@@ -85,7 +85,7 @@ function deletePlace(req, res, next) {
   const placeFoundIndex = DUMMY_PLACES.findIndex( place => place.id === placeId);
   if (placeFoundIndex === -1) {
     return next(
-      new HttpError("Could not find a place for the provided user id.", 404)
+      new HttpError("Could not find a place for the provided place id.", 404)
     );
   }
   DUMMY_PLACES.splice(placeFoundIndex, 1);
