@@ -1,9 +1,11 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const HttpError = require("./models/http-error")
 const placeRoutes = require("./routes/place-routes");
 const userRoutes = require("./routes/user-routes");
 
+const PORT = 5000;
 const app = express();
 app.use(express.json());
 
@@ -25,4 +27,9 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occured!' });
 });
 
-app.listen(5000);
+mongoose.connect('mongodb://backend:backend1234@localhost:27017/yourplaces')
+  .then(() => {
+    // Starts the http server (backend) only if the connection to mongodb was successful
+    app.listen(PORT, () => console.log(`Server is up on port ${PORT}`));
+  })
+  .catch(error => console.error(error));

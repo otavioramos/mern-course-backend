@@ -9,9 +9,8 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: backend
+      MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: yourplaces
     volumes:
       - mongo_yourplaces:/data/db
 
@@ -21,9 +20,9 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: backend
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: password123
-      ME_CONFIG_MONGODB_URL: mongodb://backend:password123@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://root:password123@mongo:27017/
 
 volumes:
   mongo_yourplaces:
