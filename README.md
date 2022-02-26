@@ -14,4 +14,12 @@ use yourplaces
 `
 db.createUser({ user: "backend", pwd: "backend1234", roles: [{role: "dbAdmin", db: "yourplaces"}] });
 `
+
+`
+use admin
+`
+
+`
+db.grantRolesToUser( "root", [ { role: "dbAdmin", db: "yourplaces" } ]);
+`
  
