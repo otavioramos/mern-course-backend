@@ -12,7 +12,7 @@ use yourplaces
 `
 
 `
-db.createUser({ user: "backend", pwd: "backend1234", roles: [{role: "dbAdmin", db: "yourplaces"}] });
+db.createUser({ user: "backend", pwd: "backend1234", roles: [{role: "readWrite", db: "yourplaces"}] });
 `
 
 `
@@ -20,6 +20,6 @@ use admin
 `
 
 `
-db.grantRolesToUser( "root", [ { role: "dbAdmin", db: "yourplaces" } ]);
+db.grantRolesToUser( "root", [ { role: "readWrite", db: "yourplaces" } ]);
 `
  
