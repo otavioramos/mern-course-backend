@@ -42,6 +42,7 @@ async function findPlaceById(req, res, next) {
 
 async function findPlacesByUserId(req, res, next) {
   const userId = req.params.userId;
+
   let places = [];
   try {
     places = await Place.find({ creator: { $eq: userId }});
@@ -59,7 +60,7 @@ async function findPlacesByUserId(req, res, next) {
     );
   }
 
-  res.json({ places});
+  res.json({ places: places.map(place => place.toObject({ getters: true })) });
 }
 
 async function createPlace(req, res, next) {
