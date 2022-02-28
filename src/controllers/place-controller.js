@@ -132,15 +132,24 @@ async function updatePlace(req, res, next) {
   res.json({place: place.toObject({getters: true})});
 }
 
-function deletePlace(req, res, next) {
+async function deletePlace(req, res, next) {
   const placeId = req.params.placeId;
-  const placeFoundIndex = DUMMY_PLACES.findIndex( place => place.id === placeId);
-  if (placeFoundIndex === -1) {
-    return next(
-      new HttpError("Could not find a place for the provided place id.", 404)
-    );
+  
+  let place;
+  try {
+    place = await Place.findById(placeId);
+  } catch(err) {
+    const error = new HttpError('Something went wrong, could not delete place', 500);
+    return next(error);
   }
-  DUMMY_PLACES.splice(placeFoundIndex, 1);
+
+  try {
+    await place.remove();
+  } catch(err) {
+    const error = new HttpError('Something went wrong, could not delete place', 500);
+    return next(error);
+  }
+
   res.status(200);
   res.json({message: 'Deleted place.'});
 }
