@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occured!' });
 });
 
-mongoose.connect('mongodb://backend:backend1234@localhost:27017/yourplaces')
+mongoose.connect('mongodb://localhost:27017,localhost:27018,localhost:27019/yourplaces?replicaSet=rs')
   .then(() => {
     // Starts the http server (backend) only if the connection to mongodb was successful
     app.listen(PORT, () => console.log(`Server is up on port ${PORT}`));
