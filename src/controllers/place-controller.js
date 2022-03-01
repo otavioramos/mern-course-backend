@@ -145,6 +145,8 @@ async function deletePlace(req, res, next) {
   
   let place;
   try {
+    // 'populate' method will load all properties from 'user' model with userId located in 'creator' property
+    // This works because of the relation configured in their Schemas definition
     place = await Place.findById(placeId).populate('creator');
   } catch(err) {
     const error = new HttpError('Something went wrong, could not delete place', 500);
