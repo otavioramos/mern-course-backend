@@ -1,26 +1,26 @@
-const express = require('express');
-const { check } = require('express-validator');
+const express = require('express')
+const { check } = require('express-validator')
 
 const {
-  getAllUsers,
-  signupUser,
-  logInUser,
-} = require('../controllers/user-controller');
+	getAllUsers,
+	signupUser,
+	logInUser,
+} = require('../controllers/user-controller')
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/', getAllUsers);
+router.get('/', getAllUsers)
 
 router.post(
-  '/signup',
-  [
-    check('name').not().isEmpty(),
-    check('email').normalizeEmail().isEmail(),
-    check('password').isLength({ min: 6 }),
-  ],
-  signupUser
-);
+	'/signup',
+	[
+		check('name').not().isEmpty(),
+		check('email').normalizeEmail().isEmail(),
+		check('password').isLength({ min: 6 }),
+	],
+	signupUser
+)
 
-router.post('/login', logInUser);
+router.post('/login', logInUser)
 
-module.exports = router;
+module.exports = router
