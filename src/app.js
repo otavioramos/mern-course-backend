@@ -1,16 +1,16 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 
-const HttpError = require("./models/http-error")
-const placeRoutes = require("./routes/place-routes");
-const userRoutes = require("./routes/user-routes");
+const HttpError = require('./models/http-error');
+const placeRoutes = require('./routes/place-routes');
+const userRoutes = require('./routes/user-routes');
 
 const PORT = 5000;
 const app = express();
 app.use(express.json());
 
-app.use("/api/place", placeRoutes);
-app.use("/api/user/", userRoutes);
+app.use('/api/place', placeRoutes);
+app.use('/api/user/', userRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route', 404);

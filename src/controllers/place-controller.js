@@ -1,6 +1,5 @@
-const HttpError = require("../models/http-error");
-const { v4 } = require("uuid");
-const { validationResult } = require("express-validator");
+const HttpError = require('../models/http-error');
+const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
 const getCoordsForAddress = require('../util/location');
@@ -21,7 +20,7 @@ async function findPlaceById(req, res, next) {
     return next(error);
   }
   if(!place) {
-    const error = new HttpError("Could not find a place for the provided id.", 404);
+    const error = new HttpError('Could not find a place for the provided id.', 404);
     return next(error);
   }
 
@@ -44,7 +43,7 @@ async function findPlacesByUserId(req, res, next) {
 
   if (!userWithPlaces || userWithPlaces.places.length === 0) {
     return next(
-      new HttpError("Could not find places for the provided user id.", 404)
+      new HttpError('Could not find places for the provided user id.', 404)
     );
   }
 
@@ -54,7 +53,7 @@ async function findPlacesByUserId(req, res, next) {
 async function createPlace(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    next(new HttpError("Invalid inputs passed, please check your data.", 422));
+    next(new HttpError('Invalid inputs passed, please check your data.', 422));
   }
 
   const { title, description, address, creator } = req.body;
@@ -112,7 +111,7 @@ async function createPlace(req, res, next) {
 async function updatePlace(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new HttpError("Invalid inputs passed, please check your data.", 422));
+    return next(new HttpError('Invalid inputs passed, please check your data.', 422));
   }
 
   const placeId = req.params.placeId;
