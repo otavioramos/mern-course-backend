@@ -1,25 +1,14 @@
 # mern-course-backend
 
-# mongodb
-- Run the following commands inside the mongodb container
+## Running the app
+1. Start mongodb locally
 
 `
-mongo admin -u 'root' -p 'password123'
+yarn setupLocalMongoDB
 `
 
-`
-use yourplaces
-`
+2. Start the project (nodemon)
 
 `
-db.createUser({ user: "backend", pwd: "backend1234", roles: [{role: "readWrite", db: "yourplaces"}] });
+yarn dev
 `
-
-`
-use admin
-`
-
-`
-db.grantRolesToUser( "root", [ { role: "readWrite", db: "yourplaces" } ]);
-`
- 
