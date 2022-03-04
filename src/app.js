@@ -9,6 +9,16 @@ const PORT = 5000
 const app = express()
 app.use(express.json())
 
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', '*')
+	res.setHeader(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+	)
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE')
+	next()
+})
+
 app.use('/api/place', placeRoutes)
 app.use('/api/user/', userRoutes)
 
@@ -27,9 +37,12 @@ app.use((error, req, res, next) => {
 	res.json({ message: error.message || 'An unknown error occured!' })
 })
 
-mongoose.connect('mongodb://localhost:27017,localhost:27018,localhost:27019/yourplaces?replicaSet=rs')
+mongoose
+	.connect(
+		'mongodb://localhost:27017,localhost:27018,localhost:27019/mern?replicaSet=rs'
+	)
 	.then(() => {
 		// Starts the http server (backend) only if the connection to mongodb was successful
 		app.listen(PORT, () => console.log(`Server is up on port ${PORT}`))
 	})
-	.catch(error => console.error(error))
+	.catch((error) => console.error(error))
