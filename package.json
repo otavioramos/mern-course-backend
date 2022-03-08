@@ -6,7 +6,8 @@
   "author": "Otavio Ramos",
   "license": "MIT",
   "scripts": {
-    "setupLocalMongoDB": "run-rs --keep",
+    "mongo:start": "run-rs --keep",
+    "mongo:shell":"run-rs --shell --keep",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint ./src --ext .js --fix",
     "start": "node src/app.js",
