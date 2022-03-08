@@ -72,7 +72,7 @@ async function logInUser(req, res, next) {
 		return next(error)
 	}
 
-	res.status(200).json({message: 'Login success.'})
+	res.status(200).json({message: 'Login success.', user: existingUser.toObject({getters: true})})
 }
 
 module.exports = { getAllUsers, signupUser, logInUser }
