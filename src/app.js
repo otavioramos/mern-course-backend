@@ -1,13 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const fs = require('fs')
 
 const HttpError = require('./models/http-error')
+const { uploadDestination } = require('./middlewares/file-upload')
 const placeRoutes = require('./routes/place-routes')
 const userRoutes = require('./routes/user-routes')
 
 const PORT = 5000
 const app = express()
 app.use(express.json())
+
+app.use('/uploads/images', express.static(uploadDestination))
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*')
@@ -29,11 +33,17 @@ app.use((req, res, next) => {
 
 // If any route raise an error, this middleware will catch the error
 app.use((error, req, res, next) => {
+	if (req.file) {
+		fs.unlink(req.file.path, err => {
+			console.error(err)
+		})
+	}
+
 	// Verify if response was sent already
 	if (res.headerSent) {
 		return next(error)
 	}
-	res.status(error.code || 500)
+	res.status(typeof error.code === 'number' ? error.code : 500)
 	res.json({ message: error.message || 'An unknown error occured!' })
 })
 
