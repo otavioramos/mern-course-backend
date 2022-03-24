@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+require('dotenv/config')
 const fs = require('fs')
 
 const HttpError = require('./models/http-error')
@@ -7,7 +8,7 @@ const { uploadDestination } = require('./middlewares/file-upload')
 const placeRoutes = require('./routes/place-routes')
 const userRoutes = require('./routes/user-routes')
 
-const PORT = 5000
+const PORT = process.env.PORT
 const app = express()
 app.use(express.json())
 
