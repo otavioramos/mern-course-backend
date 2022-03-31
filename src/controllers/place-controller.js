@@ -70,7 +70,7 @@ async function createPlace(req, res, next) {
 		description,
 		address,
 		location: coordinates,
-		image: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Lc3_2018_%28263682303%29_%28cropped%29.jpeg',
+		image: req.file.path,
 		creator
 	})
 

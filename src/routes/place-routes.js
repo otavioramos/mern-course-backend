@@ -1,6 +1,8 @@
 const express = require('express')
 const { check } = require('express-validator')
 
+const { fileUpload } = require('../middlewares/file-upload')
+
 const {
 	findPlaceById,
 	findPlacesByUserId,
@@ -17,6 +19,7 @@ router.get('/user/:userId', findPlacesByUserId)
 
 router.post(
 	'/',
+	fileUpload.single('image'),
 	[
 		check('title').not().isEmpty(),
 		check('description').isLength({ min: 5 }),
