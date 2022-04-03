@@ -10,12 +10,15 @@ const {
 	updatePlace,
 	deletePlace,
 } = require('../controllers/place-controller')
+const checkAuth = require('../middlewares/check-auth')
 
 const router = express.Router()
 
 router.get('/:placeId', findPlaceById)
 
 router.get('/user/:userId', findPlacesByUserId)
+
+router.use(checkAuth)
 
 router.post(
 	'/',
