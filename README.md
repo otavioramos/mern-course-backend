@@ -4,7 +4,7 @@
 1. Start mongodb locally
 
 `
-yarn setupLocalMongoDB
+yarn mongo:start
 `
 
 2. Start the project (nodemon)
