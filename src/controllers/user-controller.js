@@ -1,6 +1,7 @@
 const HttpError = require('../models/http-error')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
+require('dotenv/config')
 const jwt = require('jsonwebtoken')
 
 const User = require('../models/user')
@@ -67,7 +68,7 @@ async function signupUser(req, res, next) {
 	try {
 		token = jwt.sign(
 			{ userId: createdUser.id, email: createdUser.email }, 
-			'supersecret_dont_share', 
+			process.env.JWT_KEY, 
 			{ expiresIn: '1h' }
 		)
 	} catch(err) {
@@ -111,7 +112,7 @@ async function logInUser(req, res, next) {
 	try {
 		token = jwt.sign(
 			{ userId: existingUser.id, email: existingUser.email }, 
-			'supersecret_dont_share', 
+			process.env.JWT_KEY, 
 			{ expiresIn: '1h' }
 		)
 	} catch(err) {

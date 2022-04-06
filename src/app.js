@@ -50,7 +50,7 @@ app.use((error, req, res, next) => {
 
 mongoose
 	.connect(
-		'mongodb://localhost:27017,localhost:27018,localhost:27019/mern?replicaSet=rs'
+		process.env.MONGO_URL
 	)
 	.then(() => {
 		// Starts the http server (backend) only if the connection to mongodb was successful
